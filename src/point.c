@@ -6,11 +6,8 @@
 double euclidean_distance(Point *a, Point *b)
 {
   double sum = 0;
-  for (int i = 0; i < DIM; i++)
-  {
-    double diff = a->coords[i] - b->coords[i];
-    sum += diff * diff;
-  }
+  sum = (a->coords[0] - b->coords[0]) * (a->coords[0] - b->coords[0]) +
+        (a->coords[1] - b->coords[1]) * (a->coords[1] - b->coords[1]);
   return sqrt(sum);
 }
 
