@@ -2,3 +2,11 @@
 notebooks/
 project_goals.md
 data/zomato.csv
+# remove all object files
+*.o
+*.out
+*.exe
+*.a
+*.so
+*.dylib
+*.lib
