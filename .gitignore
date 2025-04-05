@@ -1,0 +1,4 @@
+.venv
+notebooks/
+project_goals.md
+data/zomato.csv
