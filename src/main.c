@@ -12,7 +12,7 @@
 int main()
 {
   Point points[MAX_POINTS];
-  int n = load_points("../data/zomato_locations.csv", points);
+  int n = load_points("data/zomato_locations.csv", points);
   if (n <= 0)
   {
     fprintf(stderr, "Failed to load points\n");
