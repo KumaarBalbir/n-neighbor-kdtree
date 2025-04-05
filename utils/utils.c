@@ -1,6 +1,5 @@
 #include "utils.h"
 #include <errno.h>
-#include <string.h>
 
 int load_points(const char *filename, Point points[])
 {
