@@ -13,3 +13,4 @@ data/zomato.csv
 
 .vscode/
 build/
+dummy/
