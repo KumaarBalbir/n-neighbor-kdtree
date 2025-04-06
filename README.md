@@ -13,12 +13,19 @@ git clone https://github.com/KumaarBalbir/n-neighbor-kdtree.git
 #### Usage
 
 first go to the root directory of the project.
-
+- To build the project, run the following command:
 ```bash
 make clean && make
 ```
 This will compile the program and create the `nearest_neighbor` executable in the `build` directory.
 
+- To run **only** the main.c application (kd-tree) after building with `make`, run the following command:
+```bash
+./build/nearest_neighbor <lat> <lon>
+```
+This will run the program with the given latitude and longitude.
+
+- To run the python client for plotting the nearest restaurant (basic line plot), run the following command:
 ```bash
 python3 client/client.py
 ```
