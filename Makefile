@@ -1,5 +1,6 @@
 # Makefile
 CC = gcc
+# add gdb flag (-g) for debugging
 CFLAGS = -Wall -O2 -std=c11
 INCLUDES = -I./src -I./utils
 LDFLAGS = -lm
