@@ -10,3 +10,6 @@ data/zomato.csv
 *.so
 *.dylib
 *.lib
+
+.vscode/
+build/
