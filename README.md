@@ -19,7 +19,7 @@ make clean && make
 ```
 This will compile the program and create the `nearest_neighbor` executable in the `build` directory.
 
-- To run **only** the main.c application (kd-tree) after building with `make`, run the following command:
+- To run **only** the `main.c` application (kd-tree) after building with `make`, run the following command:
 ```bash
 ./build/nearest_neighbor <lat> <lon>
 ```
