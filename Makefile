@@ -6,7 +6,7 @@ INCLUDES = -I./src -I./utils
 LDFLAGS = -lm
 
 # Source and object files
-SRC = src/main.c src/point.c src/kd_tree.c utils/utils.c
+SRC = src/main.c src/kd_tree.c utils/utils.c
 OBJ = $(patsubst %.c, build/%.o, $(SRC))
 
 # Output binary
