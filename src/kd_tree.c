@@ -1,14 +1,27 @@
 // kd_tree.c
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <float.h>
 #include <math.h>
 #include "kd_tree.h"
-#include "point.h"
 
 static int current_axis = 0; // Global variable to store current axis
 
-// Comparator function for qsort
+double euclidean_distance(Point *a, Point *b)
+{
+  double sum = 0;
+  sum = (a->coords[0] - b->coords[0]) * (a->coords[0] - b->coords[0]) +
+        (a->coords[1] - b->coords[1]) * (a->coords[1] - b->coords[1]);
+  return sqrt(sum);
+}
+
+void print_point(Point *p)
+{
+  printf("%s: (%.6f, %.6f)\n", p->name, p->coords[0], p->coords[1]);
+}
+
+// Comparator function for quick sort
 int compare_points(const void *a, const void *b)
 {
   Point *p1 = (Point *)a;
@@ -20,22 +33,51 @@ int compare_points(const void *a, const void *b)
   return 0;
 }
 
-KDNode *build_kd_tree(Point points[], int start, int end, int depth)
+KDNode *create_kd_node(Point point, int axis)
+{
+  KDNode *node = (KDNode *)malloc(sizeof(KDNode));
+  if (!node)
+  {
+    fprintf(stderr, "Memory allocation failed\n");
+    exit(1);
+  }
+  node->point = point;
+  node->left = NULL;
+  node->right = NULL;
+  node->axis = axis;
+  return node;
+}
+
+// builds kd-tree sequentially, point by point -> may lead to unbalanced kd-tree
+KDNode *insert(KDNode *root, Point *point, int axis)
+{
+  if (root == NULL)
+    return create_kd_node(*point, axis);
+
+  // Compare the point with the root based on the current axis
+  if (point->coords[axis] < root->point.coords[axis])
+    root->left = insert(root->left, point, (axis + 1) % DIM);
+  else
+    root->right = insert(root->right, point, (axis + 1) % DIM);
+
+  return root;
+}
+
+// median based balanced kd-tree construction
+KDNode *build_kd_tree(Point *points, int start, int end, int axis)
 {
   if (start > end)
     return NULL;
 
-  current_axis = depth % DIM; // Set current axis before sorting
+  current_axis = axis;
   int mid = (start + end) / 2;
 
-  // Sort based on axis
+  // Sort points in range [start, end] by current axis
   qsort(points + start, end - start + 1, sizeof(Point), compare_points);
 
-  KDNode *node = (KDNode *)malloc(sizeof(KDNode));
-  node->point = points[mid];
-  node->axis = current_axis;
-  node->left = build_kd_tree(points, start, mid - 1, depth + 1);
-  node->right = build_kd_tree(points, mid + 1, end, depth + 1);
+  KDNode *node = create_kd_node(points[mid], axis);
+  node->left = build_kd_tree(points, start, mid - 1, (axis + 1) % DIM);
+  node->right = build_kd_tree(points, mid + 1, end, (axis + 1) % DIM);
 
   return node;
 }
