@@ -2,9 +2,10 @@
 #ifndef KD_TREE_H
 #define KD_TREE_H
 
-#define DIM 2            // 2D point (latitude, longitude)
-#define MAX_POINTS 1000  // Maximum number of points
-#define MAX_NAME_LEN 100 // Maximum length of the name
+#define DIM 2                // 2D point (latitude, longitude)
+#define MAX_POINTS 1000      // Maximum number of points
+#define MAX_NAME_LEN 100     // Maximum length of the name
+static int current_axis = 0; // Global variable to store current axis
 
 typedef struct
 {

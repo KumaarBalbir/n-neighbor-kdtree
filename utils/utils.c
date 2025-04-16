@@ -61,3 +61,15 @@ void print_point(Point *p)
 {
   printf("%s: (%.6f, %.6f)\n", p->name, p->coords[0], p->coords[1]);
 }
+
+// Comparator function for quick sort
+int compare_points(const void *a, const void *b)
+{
+  Point *p1 = (Point *)a;
+  Point *p2 = (Point *)b;
+  if (p1->coords[current_axis] < p2->coords[current_axis])
+    return -1;
+  if (p1->coords[current_axis] > p2->coords[current_axis])
+    return 1;
+  return 0;
+}

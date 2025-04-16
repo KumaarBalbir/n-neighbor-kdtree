@@ -7,20 +7,6 @@
 #include "kd_tree.h"
 #include "../utils/utils.h"
 
-static int current_axis = 0; // Global variable to store current axis
-
-// Comparator function for quick sort
-int compare_points(const void *a, const void *b)
-{
-  Point *p1 = (Point *)a;
-  Point *p2 = (Point *)b;
-  if (p1->coords[current_axis] < p2->coords[current_axis])
-    return -1;
-  if (p1->coords[current_axis] > p2->coords[current_axis])
-    return 1;
-  return 0;
-}
-
 KDNode *create_kd_node(Point point, int axis)
 {
   KDNode *node = (KDNode *)malloc(sizeof(KDNode));
