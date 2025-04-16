@@ -26,6 +26,9 @@ int main(int argc, char *argv[])
     return 1;
   }
 
+  // sequentially build kd-tree
+  // KDNode *root = build_kd_tree_sequential(points, n);
+
   // build kd tree
   KDNode *root = build_kd_tree(points, 0, n - 1, 0);
   if (root == NULL)
