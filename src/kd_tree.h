@@ -12,9 +12,6 @@ typedef struct
   char name[MAX_NAME_LEN]; // Name of the location (e.g., restaurant)
 } Point;
 
-double euclidean_distance(Point *a, Point *b);
-void print_point(Point *p);
-
 typedef struct KDNode
 {
   Point point;
