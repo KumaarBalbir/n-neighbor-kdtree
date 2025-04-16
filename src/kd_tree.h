@@ -2,7 +2,18 @@
 #ifndef KD_TREE_H
 #define KD_TREE_H
 
-#include "point.h"
+#define DIM 2            // 2D point (latitude, longitude)
+#define MAX_POINTS 1000  // Maximum number of points
+#define MAX_NAME_LEN 100 // Maximum length of the name
+
+typedef struct
+{
+  double coords[DIM];      // e.g., coords[0] = lat, coords[1] = lon
+  char name[MAX_NAME_LEN]; // Name of the location (e.g., restaurant)
+} Point;
+
+double euclidean_distance(Point *a, Point *b);
+void print_point(Point *p);
 
 typedef struct KDNode
 {
@@ -11,9 +22,14 @@ typedef struct KDNode
   struct KDNode *right;
   int axis;
 } KDNode;
+// creates a new kd node
+KDNode *create_kd_node(Point point, int axis);
 
-// Build tree from array of points
-KDNode *build_kd_tree(Point points[], int start, int end, int depth);
+// insert a single point into the kd tree
+KDNode *insert(KDNode *root, Point *point, int axis);
+
+// Build entire kd-tree (balanced) from array of points
+KDNode *build_kd_tree(Point *points, int start, int end, int axis);
 
 // Nearest neighbor search
 void nearest_neighbor(KDNode *root, Point *target, KDNode **best, double *best_dist);
