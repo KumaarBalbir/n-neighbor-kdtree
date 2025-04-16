@@ -36,7 +36,7 @@ KDNode *create_kd_node(Point point, int axis)
   return node;
 }
 
-// builds kd-tree sequentially, point by point -> may lead to unbalanced kd-tree
+// inserts a single point into the kd-tree (used in sequential build)
 KDNode *insert(KDNode *root, Point *point, int axis)
 {
   if (root == NULL)
@@ -68,6 +68,19 @@ KDNode *build_kd_tree(Point *points, int start, int end, int axis)
   node->right = build_kd_tree(points, mid + 1, end, (axis + 1) % DIM);
 
   return node;
+}
+
+// builds kd-tree sequentially, point by point -> may lead to unbalanced kd-tree
+KDNode *build_kd_tree_sequential(Point *points, int n)
+{
+  KDNode *root = NULL;
+  int axis = 0;
+  for (int i = 0; i < n; i++)
+  {
+    root = insert(root, &points[i], axis);
+    axis = (axis + 1) % DIM;
+  }
+  return root;
 }
 
 void nearest_neighbor(KDNode *root, Point *target, KDNode **best, double *best_dist)
