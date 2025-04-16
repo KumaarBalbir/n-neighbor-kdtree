@@ -28,6 +28,8 @@ KDNode *insert(KDNode *root, Point *point, int axis);
 // Build entire kd-tree (balanced) from array of points
 KDNode *build_kd_tree(Point *points, int start, int end, int axis);
 
+KDNode *build_kd_tree_sequential(Point *points, int n);
+
 // Nearest neighbor search
 void nearest_neighbor(KDNode *root, Point *target, KDNode **best, double *best_dist);
 
