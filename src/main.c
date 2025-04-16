@@ -4,17 +4,18 @@
 #include <string.h>
 #include <float.h>
 #include "kd_tree.h"
-#include "point.h"
 #include "../utils/utils.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
-    if (argc != 3) {
-        printf("{\"error\": \"Usage: ./nearest_neighbor <lat> <lon>\"}\n");
-        return 1;
-    }
-    double user_lat = atof(argv[1]);
-    double user_lon = atof(argv[2]);
+  if (argc != 3)
+  {
+    printf("{\"error\": \"Usage: ./nearest_neighbor <lat> <lon>\"}\n");
+    return 1;
+  }
+  double user_lat = atof(argv[1]);
+  double user_lon = atof(argv[2]);
   // load points from csv
   Point points[MAX_POINTS];
   int n = load_points("data/zomato_locations.csv", points, MAX_POINTS);
@@ -27,6 +28,12 @@ int main(int argc, char *argv[]) {
 
   // build kd tree
   KDNode *root = build_kd_tree(points, 0, n - 1, 0);
+  if (root == NULL)
+  {
+    fprintf(stderr, "Failed to build kd tree\n");
+    return 1;
+  }
+  printf("The nearest restaurant location is:\n");
 
   Point user_location;
   // printf("Enter your location (lat lon): ");
@@ -49,7 +56,7 @@ int main(int argc, char *argv[]) {
   // printf("Distance: %.6f\n", best_dist);
 
   printf("{\"name\": \"%s\", \"lat\": %lf, \"lon\": %lf}\n",
-           best->point.name, best->point.coords[0], best->point.coords[1]);
+         best->point.name, best->point.coords[0], best->point.coords[1]);
 
   free_kd_tree(root);
   return 0;
