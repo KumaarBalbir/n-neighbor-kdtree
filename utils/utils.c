@@ -84,3 +84,17 @@ Point create_invalid_point()
   strcpy(p.name, "INVALID");
   return p;
 }
+
+// finds point with smallest coordinate among three points in a given axis
+Point minimum(Point a, Point b, Point c, int axis)
+{
+  Point minimm = a;
+
+  if (b.coords[axis] < minimm.coords[axis])
+    minimm = b;
+
+  if (c.coords[axis] < minimm.coords[axis])
+    minimm = c;
+
+  return minimm;
+}
