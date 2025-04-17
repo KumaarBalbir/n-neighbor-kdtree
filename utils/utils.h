@@ -10,5 +10,5 @@ int compare_points(const void *a, const void *b);
 Point create_invalid_point();
 Point minimum(Point a, Point b, Point c, int axis);
 Point maximum(Point a, Point b, Point c, int axis);
-int are_points_equal(Point a, Point b);
+int are_points_equal(Point *a, Point *b);
 #endif

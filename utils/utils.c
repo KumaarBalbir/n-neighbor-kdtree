@@ -113,12 +113,12 @@ Point maximum(Point a, Point b, Point c, int axis)
 }
 
 // compares two points
-int are_points_equal(Point a, Point b)
+int are_points_equal(Point *a, Point *b)
 {
   for (int i = 0; i < DIM; i++)
   {
-    if (a.coords[i] != b.coords[i])
+    if (a->coords[i] != b->coords[i])
       return 0;
   }
-  return strcmp(a.name, b.name) == 0;
+  return strcmp(a->name, b->name) == 0;
 }
