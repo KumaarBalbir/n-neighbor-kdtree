@@ -85,6 +85,37 @@ int search_point(KDNode *root, Point *target)
     return search_point(root->right, target);
 }
 
+// prints all points in region defined by min and max points
+void rangeSearch(KDNode *root, Point *min, Point *max, int axis)
+{
+  if (root == NULL)
+    return;
+
+  int inside = 1;
+  for (int i = 0; i < DIM; i++)
+  {
+    if (root->point.coords[i] < min->coords[i] || root->point.coords[i] > max->coords[i])
+    {
+      inside = 0;
+      break;
+    }
+  }
+
+  if (inside)
+  {
+    printf("Found in range: ");
+    printPoint(&root->point);
+    printf("\n");
+  }
+
+  // Use axis as current splitting dimension
+  if (min->coords[axis] <= root->point.coords[axis])
+    rangeSearch(root->left, min, max, (axis + 1) % DIM);
+
+  if (max->coords[axis] >= root->point.coords[axis])
+    rangeSearch(root->right, min, max, (axis + 1) % DIM);
+}
+
 void nearest_neighbor(KDNode *root, Point *target, KDNode **best, double *best_dist)
 {
   if (!root)
