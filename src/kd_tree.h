@@ -36,6 +36,8 @@ void nearest_neighbor(KDNode *root, Point *target, KDNode **best, double *best_d
 
 Point findmin(KDNode *root, int axis, int level);
 
+KDNode *delete_node(KDNode *root, Point x, int depth);
+
 // Free the tree
 void free_kd_tree(KDNode *root);
 

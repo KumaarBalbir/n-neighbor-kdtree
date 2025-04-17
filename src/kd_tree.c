@@ -118,6 +118,52 @@ Point findmin(KDNode *root, int axis, int level)
   }
 }
 
+// delete a nodes from the kd-tree
+KDNode *delete_node(KDNode *root, Point x, int depth)
+{
+  if (root == NULL)
+    return NULL;
+
+  int axis = depth % DIM;
+
+  // if current node matches the point to delete
+  if (are_points_equal(root->point, x))
+  {
+
+    // Case 1: Node has right subtree
+    if (root->right != NULL)
+    {
+      Point min = findmin(root->right, axis, depth + 1);
+      root->point = min;
+      root->right = delete_node(root->right, min, depth + 1);
+    }
+    // Case 2: No right child, but has left child
+    else if (root->left != NULL)
+    {
+      Point min = findmin(root->left, axis, depth + 1);
+      root->point = min;
+      root->right = delete_node(root->left, min, depth + 1);
+      root->left = NULL;
+    }
+    // Case 3: Leaf node
+    else
+    {
+      free(root);
+      return NULL;
+    }
+  }
+  else if (x.coords[axis] < root->point.coords[axis])
+  {
+    root->left = delete_node(root->left, x, depth + 1);
+  }
+  else
+  {
+    root->right = delete_node(root->right, x, depth + 1);
+  }
+
+  return root;
+}
+
 void free_kd_tree(KDNode *root)
 {
   if (!root)
