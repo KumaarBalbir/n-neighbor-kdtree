@@ -94,6 +94,30 @@ void nearest_neighbor(KDNode *root, Point *target, KDNode **best, double *best_d
   }
 }
 
+Point findmin(KDNode *root, int axis, int level)
+{
+  if (root == NULL)
+    return create_invalid_point();
+
+  int current_axis = level % DIM;
+
+  if (current_axis == axis)
+  {
+    // Check only the left subtree for min along this axis
+    if (root->left == NULL)
+      return root->point;
+    else
+      return findmin(root->left, axis, level + 1);
+  }
+  else
+  {
+    // Check all three: left, right, current node
+    Point left_min = findmin(root->left, axis, level + 1);
+    Point right_min = findmin(root->right, axis, level + 1);
+    return minimum(left_min, right_min, root->point, axis);
+  }
+}
+
 void free_kd_tree(KDNode *root)
 {
   if (!root)

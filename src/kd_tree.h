@@ -34,6 +34,8 @@ KDNode *build_kd_tree_sequential(Point *points, int n);
 // Nearest neighbor search
 void nearest_neighbor(KDNode *root, Point *target, KDNode **best, double *best_dist);
 
+Point findmin(KDNode *root, int axis, int level);
+
 // Free the tree
 void free_kd_tree(KDNode *root);
 
