@@ -85,22 +85,6 @@ int search_point(KDNode *root, Point *target)
     return search_point(root->right, target);
 }
 
-// search for a target point in the kd-tree
-int search_point(KDNode *root, Point *target)
-{
-  if (root == NULL)
-    return 0;
-
-  if (are_points_equal(&root->point, target))
-    return 1;
-
-  int axis = root->axis;
-  if (target->coords[axis] < root->point.coords[axis])
-    return search_point(root->left, target);
-  else
-    return search_point(root->right, target);
-}
-
 // prints all points in region defined by min and max points
 void rangeSearch(KDNode *root, Point *min, Point *max, int axis)
 {
