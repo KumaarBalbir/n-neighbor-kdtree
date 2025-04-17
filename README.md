@@ -4,6 +4,46 @@ Allows querying the closest point (e.g., restaurant or location) to a given lati
 
 All data points are from the Zomato restaurant dataset downloaded from kaggle.
 
+
+KDNode *insert(KDNode *root, Point *point, int axis);
+
+// Build entire kd-tree (balanced) from array of points
+KDNode *build_kd_tree(Point *points, int start, int end, int axis);
+
+KDNode *build_kd_tree_sequential(Point *points, int n);
+
+int search_point(KDNode *root, Point *target);
+
+void rangeSearch(KDNode *root, Point *min, Point *max, int axis);
+
+// Nearest neighbor search
+void nearest_neighbor(KDNode *root, Point *target, KDNode **best, double *best_dist);
+
+void insert_neighbor(Neighbor neighbors[], int k, Point p, double d);
+
+void k_nearest_neighbors(KDNode *root, Point *target, Neighbor neighbors[], int k, int depth);
+
+Neighbor *find_k_nearest(KDNode *root, Point *target, int k);
+
+Point findmin(KDNode *root, int axis, int depth);
+
+Point findmax(KDNode *root, int axis, int depth);
+
+KDNode *delete_node(KDNode *root, Point x, int depth);
+
+
+### Additional functions implementd (but not used in main.c)
+- `insert`: Inserts a point into the kd-tree.
+- `build_kd_tree`: Builds a balanced kd-tree from an array of points.
+- `build_kd_tree_sequential`: Builds a sequential kd-tree from an array of points.
+- `search_point`: Searches for a point in the kd-tree.
+- `rangeSearch`: Performs range search (bounded by min and max points) in the kd-tree.
+- `nearest_neighbor`: Performs nearest neighbor search in the kd-tree(**demonstrated in the main.c**).
+- `find_k_nearest`: Finds the k nearest neighbors in the kd-tree.
+- `findmin`: Finds the minimum point in the kd-tree along a given axis.
+- `findmax`: Finds the maximum point in the kd-tree along a given axis.
+- `delete_node`: Deletes a node from the kd-tree.
+
 #### Cloning the repository
 
 ```bash
