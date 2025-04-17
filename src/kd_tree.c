@@ -94,12 +94,12 @@ void nearest_neighbor(KDNode *root, Point *target, KDNode **best, double *best_d
   }
 }
 
-Point findmin(KDNode *root, int axis, int level)
+Point findmin(KDNode *root, int axis, int depth)
 {
   if (root == NULL)
     return create_invalid_point();
 
-  int current_axis = level % DIM;
+  int current_axis = depth % DIM;
 
   if (current_axis == axis)
   {
@@ -107,13 +107,13 @@ Point findmin(KDNode *root, int axis, int level)
     if (root->left == NULL)
       return root->point;
     else
-      return findmin(root->left, axis, level + 1);
+      return findmin(root->left, axis, depth + 1);
   }
   else
   {
     // Check all three: left, right, current node
-    Point left_min = findmin(root->left, axis, level + 1);
-    Point right_min = findmin(root->right, axis, level + 1);
+    Point left_min = findmin(root->left, axis, depth + 1);
+    Point right_min = findmin(root->right, axis, depth + 1);
     return minimum(left_min, right_min, root->point, axis);
   }
 }
