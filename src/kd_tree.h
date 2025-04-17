@@ -41,6 +41,8 @@ KDNode *build_kd_tree_sequential(Point *points, int n);
 // Nearest neighbor search
 void nearest_neighbor(KDNode *root, Point *target, KDNode **best, double *best_dist);
 
+void insert_neighbor(Neighbor neighbors[], int k, Point p, double d);
+
 Point findmin(KDNode *root, int axis, int depth);
 
 KDNode *delete_node(KDNode *root, Point x, int depth);

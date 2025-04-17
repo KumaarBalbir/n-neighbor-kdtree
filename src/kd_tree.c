@@ -94,6 +94,25 @@ void nearest_neighbor(KDNode *root, Point *target, KDNode **best, double *best_d
   }
 }
 
+// inserts point p with distance d into the neighbors array
+void insert_neighbor(Neighbor neighbors[], int k, Point p, double d)
+{
+  for (int i = 0; i < k; i++)
+  {
+    if (neighbors[i].dist == -1 || d < neighbors[i].dist)
+    {
+      // Shift right to make room for the new neighbor
+      for (int j = k - 1; j > i; j--)
+      {
+        neighbors[j] = neighbors[j - 1];
+      }
+      neighbors[i].point = p;
+      neighbors[i].dist = d;
+      break;
+    }
+  }
+}
+
 Point findmin(KDNode *root, int axis, int depth)
 {
   if (root == NULL)
