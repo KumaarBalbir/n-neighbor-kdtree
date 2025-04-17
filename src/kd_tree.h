@@ -49,6 +49,8 @@ Neighbor *find_k_nearest(KDNode *root, Point *target, int k);
 
 Point findmin(KDNode *root, int axis, int depth);
 
+Point findmax(KDNode *root, int axis, int depth);
+
 KDNode *delete_node(KDNode *root, Point x, int depth);
 
 // Free the tree

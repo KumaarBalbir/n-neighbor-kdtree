@@ -170,6 +170,30 @@ Point findmin(KDNode *root, int axis, int depth)
   }
 }
 
+Point findmax(KDNode *root, int axis, int depth)
+{
+  if (root == NULL)
+    return create_invalid_point();
+
+  int current_axis = depth % DIM;
+
+  if (current_axis == axis)
+  {
+    // Check only the right subtree for max along this axis
+    if (root->right == NULL)
+      return root->point;
+    else
+      return findmax(root->right, axis, depth + 1);
+  }
+  else
+  {
+    // Check all three: left, right, current node
+    Point left_max = findmax(root->left, axis, depth + 1);
+    Point right_max = findmax(root->right, axis, depth + 1);
+    return maximum(left_max, right_max, root->point, axis);
+  }
+}
+
 // delete a nodes from the kd-tree
 KDNode *delete_node(KDNode *root, Point x, int depth)
 {
