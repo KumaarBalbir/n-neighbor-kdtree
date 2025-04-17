@@ -203,7 +203,7 @@ KDNode *delete_node(KDNode *root, Point x, int depth)
   int axis = depth % DIM;
 
   // if current node matches the point to delete
-  if (are_points_equal(root->point, x))
+  if (are_points_equal(&root->point, &x))
   {
 
     // Case 1: Node has right subtree
