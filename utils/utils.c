@@ -98,6 +98,19 @@ Point minimum(Point a, Point b, Point c, int axis)
 
   return minimm;
 }
+// finds point with largest coordinate among three points in a given axis
+Point maximum(Point a, Point b, Point c, int axis)
+{
+  Point maximm = a;
+
+  if (b.coords[axis] > maximm.coords[axis])
+    maximm = b;
+
+  if (c.coords[axis] > maximm.coords[axis])
+    maximm = c;
+
+  return maximm;
+}
 
 // compares two points
 int are_points_equal(Point a, Point b)
