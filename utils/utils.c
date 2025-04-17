@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 int load_points(const char *filename, Point points[], int max_points)
 {
@@ -72,4 +73,14 @@ int compare_points(const void *a, const void *b)
   if (p1->coords[current_axis] > p2->coords[current_axis])
     return 1;
   return 0;
+}
+
+// creates an invalid point, when no point is found
+Point create_invalid_point()
+{
+  Point p;
+  for (int i = 0; i < DIM; i++)
+    p.coords[i] = INFINITY;
+  strcpy(p.name, "INVALID");
+  return p;
 }
