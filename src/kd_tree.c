@@ -69,6 +69,22 @@ KDNode *build_kd_tree_sequential(Point *points, int n)
   return root;
 }
 
+// search for a target point in the kd-tree
+int search_point(KDNode *root, Point *target)
+{
+  if (root == NULL)
+    return 0;
+
+  if (are_points_equal(&root->point, target))
+    return 1;
+
+  int axis = root->axis;
+  if (target->coords[axis] < root->point.coords[axis])
+    return search_point(root->left, target);
+  else
+    return search_point(root->right, target);
+}
+
 void nearest_neighbor(KDNode *root, Point *target, KDNode **best, double *best_dist)
 {
   if (!root)
