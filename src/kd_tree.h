@@ -13,6 +13,13 @@ typedef struct
   char name[MAX_NAME_LEN]; // Name of the location (e.g., restaurant)
 } Point;
 
+// struct to store neighbor information wrt a point
+typedef struct
+{
+  Point point;
+  double dist;
+} Neighbor;
+
 typedef struct KDNode
 {
   Point point;
