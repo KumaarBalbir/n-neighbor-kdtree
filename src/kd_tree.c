@@ -113,6 +113,39 @@ void insert_neighbor(Neighbor neighbors[], int k, Point p, double d)
   }
 }
 
+// K-nearest neighbors search
+void k_nearest_neighbors(KDNode *root, Point *target, Neighbor neighbors[], int k, int depth)
+{
+  if (root == NULL)
+    return;
+
+  int axis = depth % DIM;
+  double d = euclidean_distance(&root->point, target);
+  insert_neighbor(neighbors, k, root->point, d);
+
+  KDNode *next = (target->coords[axis] < root->point.coords[axis]) ? root->left : root->right;
+  KDNode *other = (next == root->left) ? root->right : root->left;
+
+  // Traverse closer subtree
+  k_nearest_neighbors(next, target, neighbors, k, depth + 1);
+
+  // if we need to traverse the other side
+  if (other && fabs(target->coords[axis] - root->point.coords[axis]) < neighbors[k - 1].dist)
+  {
+    k_nearest_neighbors(other, target, neighbors, k, depth + 1);
+  }
+}
+
+// returns k nearest neighbors to the target point
+Neighbor *find_k_nearest(KDNode *root, Point *target, int k)
+{
+  Neighbor *neighbors = malloc(k * sizeof(Neighbor));
+  for (int i = 0; i < k; i++)
+    neighbors[i].dist = -1; // mark as empty
+  k_nearest_neighbors(root, target, neighbors, k, 0);
+  return neighbors;
+}
+
 Point findmin(KDNode *root, int axis, int depth)
 {
   if (root == NULL)

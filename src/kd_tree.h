@@ -43,6 +43,10 @@ void nearest_neighbor(KDNode *root, Point *target, KDNode **best, double *best_d
 
 void insert_neighbor(Neighbor neighbors[], int k, Point p, double d);
 
+void k_nearest_neighbors(KDNode *root, Point *target, Neighbor neighbors[], int k, int depth);
+
+Neighbor *find_k_nearest(KDNode *root, Point *target, int k);
+
 Point findmin(KDNode *root, int axis, int depth);
 
 KDNode *delete_node(KDNode *root, Point x, int depth);
